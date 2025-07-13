@@ -28,6 +28,7 @@
                 <h2>Building a Genetic Algorithm to Solve The Traveling Salesman Problem</h2>
                 <p>July 10, 2025</p>
                 <section>
+                    <h2>Problem</h2>
                     <p>
                         A while back, a friend of mine, Kevin Caravaggio, started posting on his blog about a project aimed at benchmarking various approaches to solving the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Traveling Salesman Problem</a>. So far the project had featured Test-Driven-Development with Maven and a near-neighbor greedy algorithm. His first blog post on the subject is linked here: <a href="https://seedshare.io/blog/tsp1/">seedshare.io/blog</a>. Looking to add some variety to the approaches for solving this problem, he asked me to write a genetic routing algorithm.  
                         We won't get too deep into the project structure, test-driven development, or the greedy algorithm for TSP since that is already well documented on Kevin's blog. However I thought it would be fun to go over my contribution to the project with a focus on the algorithm and benchmarking. So a great place to start is the problem statement Kevin started with:
@@ -37,7 +38,7 @@
                         <cite><a href="https://seedshare.io/blog/tsp1/">Kevin Caravaggio, Seedshare.io</a></cite>
 
                     <p>
-                        This percectly fits the bill for the classic TSP problem: given a fully connected weighted graph, find the shortest route that visits each node exactly once and forms a single cycle. Nearest-neighbor takes a simple and obvious approach, start with the closest node, then next closest, and on and on until all nodes are visited. <dfn>Genetic routing algorithms</dfn> are part of a larger family of algorithms which are particularly useful for solving some interesting NP-Hard problems. </p>
+                        This percectly fits the bill for the classic TSP problem: given a fully connected weighted graph, find the shortest route that visits each node exactly once and forms a single cycle. Nearest-neighbor takes a simple and obvious approach, start with the closest node, then next closest, and on and on until all nodes are visited. <dfn>Genetic routing algorithms</dfn> are part of a larger family of algorithms which are particularly useful for solving some interesting NP-Hard problems.
                     </p>
                 </section>
                 <hr>
@@ -98,10 +99,10 @@ public class GeneticDroneRouter extends AbstractDroneRouter {
                             And then we can go ahead and implement the required method <code>route()</code>, starting with initial random population generation:
                         </p>
                         <pre><code>
-List&ltList&ltServiceDestination&gt&gt population = new ArrayList<>();
+List&ltList&ltServiceDestination&gt;&gt; population = new ArrayList&lt;&gt;();
 
-for (int i = 0; i &lt populationSize; i++) {
-    List<ServiceDestination> randRoute = new ArrayList&lt&gt(serviceDestinations);
+for (int i = 0; i &lt; populationSize; i++) {
+    List&lt;ServiceDestination&gt; randRoute = new ArrayList&lt;&gt;(serviceDestinations);
     Collections.shuffle(randRoute);
     population.add(randRoute);
 }
@@ -111,24 +112,24 @@ for (int i = 0; i &lt populationSize; i++) {
                         </p>
                         <pre><code>
 // Cull, crossover, mutate, introduce randomness
-for (int i = 0; i &lt epochs; i++) {
-    List&ltList&ltServiceDestination&gt&gt culledPopulation = cull(population, distributionCenter);
-    population = new ArrayList&lt&gt(culledPopulation);
+for (int i = 0; i &lt; epochs; i++) {
+    List&ltList&ltServiceDestination&gt;&gt; culledPopulation = cull(population, distributionCenter);
+    population = new ArrayList&lt;&gt;(culledPopulation);
     // Crossover
-    while (population.size() &lt (int) Math.round(populationSize * 0.55)) {
+    while (population.size() &lt; (int) Math.round(populationSize * 0.55)) {
         population.add(
             OX(
                 culledPopulation.get(random.nextInt(culledPopulation.size())),
                 culledPopulation.get(random.nextInt(culledPopulation.size()))));
     }
     // Mutate
-    while (population.size() &lt (int) Math.round(populationSize * 0.9)) {
+    while (population.size() &lt; (int) Math.round(populationSize * 0.9)) {
         int randIdx = random.nextInt(culledPopulation.size());
         population.add(swapMutate(culledPopulation.get(randIdx)));
     }
     // Maintain diversity
-    while (population.size() &lt populationSize) {
-        List&ltServiceDestination&gt randRoute = new ArrayList&lt&gt(serviceDestinations);
+    while (population.size() &lt; populationSize) {
+        List&ltServiceDestination&gt; randRoute = new ArrayList&lt;&gt;(serviceDestinations);
         Collections.shuffle(randRoute);
         population.add(randRoute);
     }
@@ -138,18 +139,18 @@ for (int i = 0; i &lt epochs; i++) {
                             This gets the general gist, but of course the interesting stuff happens in our helper functions, mainly <code>cull()</code> and <code>OX()</code>. Starting with <code>cull()</code> we will simply sort, save the top 10%, then call our <code>tournamentElimination()</code> function to select an additional 10%:
                         </p>
                         <pre><code>
-private List&ltList&ltServiceDestination&gt&gt cull(
-    List&ltList&ltServiceDestination&gt&gt population, ServiceDestination origin) {
-    List&ltList&ltServiceDestination&gt&gt newPopulation = new ArrayList&lt&gt();
+private List&ltList&ltServiceDestination&gt;&gt; cull(
+    List&ltList&ltServiceDestination&gt;&gt; population, ServiceDestination origin) {
+    List&ltList&ltServiceDestination&gt;&gt; newPopulation = new ArrayList&lt;&gt;();
     int eliteCount = populationSize / 10; // Keep elite 10 percent
     int tournamentCount = populationSize / 10; // Keep 10% selected via tournament
 
-    List&ltList&ltServiceDestination&gt&gt sorted = new ArrayList&lt&gt(population);
-    sorted.sort(Comparator.comparingDouble(route -&gt routeLength(route, origin)));
+    List&ltList&ltServiceDestination&gt;&gt; sorted = new ArrayList&lt;&gt;(population);
+    sorted.sort(Comparator.comparingDouble(route -&gt; routeLength(route, origin)));
 
-    List&ltList&ltServiceDestination&gt&gt elites = sorted.subList(0, eliteCount);
-    for (int i = 0; i &lt eliteCount; i++) {
-        newPopulation.add(new ArrayList&lt&gt(elites.get(i)));
+    List&ltList&ltServiceDestination&gt;&gt; elites = sorted.subList(0, eliteCount);
+    for (int i = 0; i &lt; eliteCount; i++) {
+        newPopulation.add(new ArrayList&lt;&gt;(elites.get(i)));
     }
 
     newPopulation.addAll(
@@ -162,19 +163,19 @@ private List&ltList&ltServiceDestination&gt&gt cull(
                             <code>routeLength()</code> is just a helper function that accounts for the length of the full path including the origin. So this culls the less fit routes from our population using elitism (keeping the fittest) but the next 10% is chosen through tournament, which is an interesting concept. While tournaments sound like they should pick only the best just like elitism, we actually will be running tournaments on subsets of the remaining population which gives slightly less optimal routes a chance to survive and helps us maintain genetic diversity. Our code is shown below:
                         </p>
                         <pre><code>
-private List&ltList&ltServiceDestination&gt&gt tournamentElimination(
-    List&ltList&ltServiceDestination&gt&gt population, int survivorCount, ServiceDestination origin) {
-    List&ltList&ltServiceDestination&gt&gt survivors = new ArrayList&lt&gt();
+private List&ltList&ltServiceDestination&gt;&gt; tournamentElimination(
+    List&ltList&ltServiceDestination&gt;&gt; population, int survivorCount, ServiceDestination origin) {
+    List&ltList&ltServiceDestination&gt;&gt; survivors = new ArrayList&lt;&gt;();
 
-    for (int i = 0; i &lt survivorCount; i++) {
-        List&ltList&ltServiceDestination&gt&gt tournament = new ArrayList&lt&gt();
+    for (int i = 0; i &lt; survivorCount; i++) {
+        List&ltList&ltServiceDestination&gt;&gt; tournament = new ArrayList&lt;&gt;();
 
-        for (int j = 0; j &lt population.size() / 5; j++) {
-            List&ltServiceDestination&gt candidate = population.get(random.nextInt(population.size()));
+        for (int j = 0; j &lt; population.size() / 5; j++) {
+            List&ltServiceDestination&gt; candidate = population.get(random.nextInt(population.size()));
             tournament.add(candidate);
         }
 
-        tournament.sort(Comparator.comparingDouble(route -&gt routeLength(route, origin)));
+        tournament.sort(Comparator.comparingDouble(route -&gt; routeLength(route, origin)));
 
         survivors.add(tournament.get(0));
     }
@@ -192,16 +193,16 @@ private List&ltList&ltServiceDestination&gt&gt tournamentElimination(
                             If we just make a few list copies this is pretty elementary to implement in code:
                         </p>
                         <pre><code>
-private List&ltServiceDestination&gt OX(
-    List&ltServiceDestination&gt parent1, List&ltServiceDestination&gt parent2) {
+private List&ltServiceDestination&gt; OX(
+    List&ltServiceDestination&gt; parent1, List&ltServiceDestination&gt; parent2) {
     // Randomly select a gene from parent1 starting in the first half and ending in the last half
     int size = parent1.size();
     int start = random.nextInt(size / 2);
     int end = start + random.nextInt(size - start);
-    List&gtServiceDestination&gt child = new ArrayList&lt&gt(Collections.nCopies(size, null));
+    List&gtServiceDestination&gt; child = new ArrayList&lt;&gt;(Collections.nCopies(size, null));
 
     // Preserve allele position from gene in child
-    for (int i = start; i &lt= end; i++) {
+    for (int i = start; i &lt;= end; i++) {
         child.set(i, parent1.get(i));
     }
     <ins>
@@ -220,7 +221,7 @@ private List&ltServiceDestination&gt OX(
     <del>
     // Fill in remaining slots with parent2 alleles (starting after gene and wrapping back around)
     int currentIdx = (end + 1) % size;
-    for (int i = 0; i &lt size; i++) {
+    for (int i = 0; i &lt; size; i++) {
         ServiceDestination candidate = parent2.get((end + 1 + i) % size);
         if (!child.contains(candidate)) {
             child.set(currentIdx, candidate);
@@ -246,7 +247,7 @@ private List&ltServiceDestination&gt OX(
                         <pre><code>
 public void setup() {
     dc = new ServiceDestination("warehouse1", 14, 14);
-    destinations = new LinkedList&lt&gt();
+    destinations = new LinkedList&lt;&gt;();
     // each point is further from dc
     destinations.add(new ServiceDestination("A", 13, 12));
     destinations.add(new ServiceDestination("B", 8, 9));
@@ -259,7 +260,7 @@ public void setup() {
 
 @Test
 public void test_route() {
-    List&ltServiceDestination&gt route = router.route(dc, destinations);
+    List&ltServiceDestination&gt; route = router.route(dc, destinations);
     assertThat(route)
         .isNotNull()
         .isNotEmpty()
@@ -347,12 +348,12 @@ public void test_route() {
                                 <col style="background-color: #fff;">
                                 <col style="background-color: #fff;">
                             </colgroup>
+                        <tbody>
                             <thead style="background-color: #f0f0f0;">
                                 <th>Method</th>
                                 <th>Runtime</th>
                                 <th>Accuracy</th>
                             </thead>
-                            <tbody>
                                 <tr>
                                     <td>Brute Force</td>
                                     <td>O(n!)</td>
