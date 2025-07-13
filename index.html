@@ -2,10 +2,60 @@
 <html lang="en-us">
     <head>
         <title>Welcome</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+        <style>
+            body {
+                width: 50%;
+                background-color: #f0f0f0;
+                margin: 0 auto; 
+            }
+        </style>
     </head>
+    <script>
+        class LoadingSpinner extends HTMLElement {
+            constructor() {
+            super();
+
+            // Attach a shadow DOM so styles are encapsulated
+            const shadow = this.attachShadow({ mode: 'open' });
+
+            // Create spinner container
+            const spinner = document.createElement('div');
+            spinner.classList.add('spinner');
+
+            // Append spinner to shadow root
+            shadow.appendChild(spinner);
+
+            // Style it
+            const style = document.createElement('style');
+            style.textContent = `
+                .spinner {
+                width: 40px;
+                height: 40px;
+                border: 5px solid #ccc;
+                border-top-color: #333;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                to { transform: rotate(360deg); }
+                }
+            `;
+            shadow.appendChild(style);
+            }
+        }
+
+        customElements.define('loading-spinner', LoadingSpinner);
+    </script>
+
     <body>
         <header>
-            <h1>Daniel Andrews Portfolio Website</h1>
+            <hgroup>
+                <h1>Daniel Andrews</h1>
+                <h2>Portfolio Website</h2>
+            </hgroup>
             <nav>
                 <a href="/index.html">Home</a>
                 <a href="/portfolio.html">Portfolio</a>
@@ -14,15 +64,39 @@
             </nav>
         </header>
         <main>
-            <h2>Welcome to my Portfolio Site!</h2>
-            <p>
-                My name is Daniel Andrews. I am a USMC veteran attending the University of California, San Diego. I graduate with a degree in <em>Computer Science</em> in August 2025. 
-                I am currently seeking work in Software Engineering or Computer Security. I have developed a great interest in Systems programming/engineering and have worked
-                on projects revolving around building operating systems, compilers, distributed storage server clusters and both algorithmic and low-level optimization.
-            </p>
-            <p>
-                I currently live in San Diego, CA and do some freelance work as an AI trainer.
-            </p>
+            <section>
+                <h2>Welcome to my Portfolio Site!</h2>
+                <p>
+                    My name is Daniel Andrews. I am a USMC veteran attending the University of California, San Diego. I graduate with a degree in <em>Computer Science</em> in August 2025. 
+                    I am currently seeking work in Software Engineering or Computer Security. I have developed a great interest in Systems programming/engineering and have worked
+                    on projects revolving around building operating systems, compilers, distributed storage server clusters and both algorithmic and low-level optimization.
+                </p>
+                <div>
+                    I currently live in San Diego, CA and do some freelance work as an AI trainer.
+                </div>
+            </section>
+            <section>
+                <h2>Hobbies and Interests</h2>
+                <p>I enjoy making music and getting outdoors and the occasional Counterstrike match. Here's a clip of me hitting an ace</p>
+                <video controls>
+                    <source src="/assets/csgo.mp4" type="video/mp4">
+                </video>
+                <p>Here's a timelapse I captured during my travels in Utah</p>
+                <iframe src="https://www.youtube.com/embad/6w2EvNjbUnA"></iframe>
+                <p>This sound effect describes how I felt completing this assignment jamming extra unneeded tags all over this website</p>
+                <audio controls>
+                    <source src="/assets/bruh-sound-effect-2-37927.mp3">
+                </audio>
+                <p>This is a blue box</p>
+                <svg viewBox='0 0 100 100' width='100'><rect width='100' height='100' fill='steelblue'/></svg>
+                <p>Here's a canvas that could do something with JS (border so you can see it)</p>
+                <canvas id="demo-canvas" width="200" height="100" style="border: 1px solid black;">
+                    This is a canvas element
+                </canvas>
+                <p>And a loading spinner custom element that might be useful</p>
+                <loading-spinner></loading-spinner>
+
+            </section>
         </main>
         <footer>
             <nav>

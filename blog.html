@@ -2,6 +2,14 @@
 <html lang="en-us">
     <head>
         <title>Welcome</title>
+
+        <style>
+            body {
+                width: 50%;
+                background-color: #f0f0f0;
+                margin: 0 auto; 
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -15,6 +23,26 @@
         </header>
         <main>
             <h2>DevBlog Posts</h2>
+                        <search>
+                <form>
+                    <label for="blogfilter">Filter</label>
+                    <select name="blogfilter" id="blogfilter">
+                        <optgroup label="Project Type">
+                            <option value="">All</option>
+                            <option value="algos">Algorithms</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="blogsearch">Search Projects</label>
+                    <input name="blogsearch" id="blogsearch" list="post-options" placeholder="Search Posts">
+
+                    <datalist id="post-options">
+                        <option value="genetic-algo-1">Genetic Algorithm</option>
+                    </datalist>
+
+                    <button type="submit">Search</button>
+                </form>
+            </search>
             <noscript>
                 <dialog open>
                     <p>Unable to retrieve blogposts without JavaScript</p>
@@ -23,8 +51,15 @@
             <article>
                 <h3>Genetic Routing Algorithm for TSP</h3>
                 <p>A genetic drone router contributed to a project focused on solving TSP</p>
-                <a href="/posts/2025-07-10-genetic-algo-1.html">Post</a>
+                <a href="/posts/2025-07-10-genetic-algo-1.html">View Post</a>
             </article>
+            <template id="blogpost-card">
+                <blog-card>
+                    <h3>Post Title</h3>
+                    <p>Summary</p>
+                    <a href="">View Post</a>
+                </blog-card>
+            </template>
         </main>
         <footer>
             <nav>

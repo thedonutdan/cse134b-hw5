@@ -2,10 +2,20 @@
 <html lang="en-us">
     <head>
         <title>Genetic Routing Algorithm for TSP</title>
+
+        <meta name="keywords" content="genetic algorithm, optimization, java">
+
+        <style>
+            body {
+                width: 50%;
+                background-color: #f0f0f0;
+                margin: 0 auto; 
+            }
+        </style>
     </head>
     <body>
         <header>
-            <h1>Genetic Routing Algorithm for TSP</h1>
+            <h1>Genetic Routing Algorithm for <abbr title="Traveling Salesman Problem">TSP</abbr></h1>
             <nav>
                 <a href="/index.html">Home</a>
                 <a href="/portfolio.html">Portfolio</a>
@@ -24,9 +34,10 @@
                     </p>
 
                         <blockquote>Worldwide e-commerce retailer, Congo.com, has begun trials of its UAV delivery service, which uses drones to ship smaller products to customers in the area surrounding a distribution center. As an engineer at Congo, your task is to develop a drone routing program. Your program should accept the location of the distribution center and a list of the customer locations as inputs and return a list of customers in the order they should be visited.</blockquote>
+                        <cite><a href="https://seedshare.io/blog/tsp1/">Kevin Caravaggio, Seedshare.io</a></cite>
 
                     <p>
-                        This percectly fits the bill for the classic TSP problem: given a fully connected weighted graph, find the shortest route that visits each node exactly once and forms a single cycle. Nearest-neighbor takes a simple and obvious approach, start with the closest node, then next closest, and on and on until all nodes are visited. Genetic routing algorithms are part of a larger family of algorithms which are particularly useful for solving some interesting NP-Hard problems. </p>
+                        This percectly fits the bill for the classic TSP problem: given a fully connected weighted graph, find the shortest route that visits each node exactly once and forms a single cycle. Nearest-neighbor takes a simple and obvious approach, start with the closest node, then next closest, and on and on until all nodes are visited. <dfn>Genetic routing algorithms</dfn> are part of a larger family of algorithms which are particularly useful for solving some interesting NP-Hard problems. </p>
                     </p>
                 </section>
                 <hr>
@@ -65,7 +76,7 @@
                         <p>
                             Looking at how to implement this we already have a good project structure to start with. We have an abstract drone router class that will take care of the basics, an injectible distance function for abstraction, and all the relevant classes to model the problem (i.e. <code>ServiceDestination.java</code> holds all pertinent information about destinations). So we can go ahead and put together a class that extends <code>AbstractDroneRouter.java</code> with a proper constructor:
                         </p>
-
+<figure>
                         <pre><code>
 public class GeneticDroneRouter extends AbstractDroneRouter {
     private int epochs;
@@ -80,6 +91,8 @@ public class GeneticDroneRouter extends AbstractDroneRouter {
     (...)
 }
                         </code></pre>
+                        <figcaption>GeneticDroneRouter constructor</figcaption>
+                        </figure>
 
                         <p>
                             And then we can go ahead and implement the required method <code>route()</code>, starting with initial random population generation:
@@ -315,6 +328,48 @@ public void test_route() {
                         <p>
                             Genetic algorithm fork: <a href="https://github.com/thedonutdan/combinatorics-genetic">github.com/thedonutdan/combinatorics-genetic</a>
                         </p>
+                    </section>
+                    <section>
+                        <h3>Related Terms</h3>
+                        <dl>
+                            <dt>Genetic Algorithm</dt>
+                            <dd>An algorithm that uses solution evolution to optimize a problem</dd>
+                            <dt>Tournament Selection</dt>
+                            <dd>A method to select well-performing solutions from randomly partitioned subsets of solutions</dd>
+                        </dl>
+                    </section>
+                    <section>
+                        <h3>Comparison of methods</h3>
+                        <table>
+                            <caption>Methods for solving TSP</caption>
+                            <colgroup>
+                                <col style="background-color: #f0f0f0;">
+                                <col style="background-color: #fff;">
+                                <col style="background-color: #fff;">
+                            </colgroup>
+                            <thead style="background-color: #f0f0f0;">
+                                <th>Method</th>
+                                <th>Runtime</th>
+                                <th>Accuracy</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Brute Force</td>
+                                    <td>O(n!)</td>
+                                    <td><progress value="100" max="100">100%</progress></td>
+                                </tr>
+                                <tr>
+                                    <td>Greedy Nearest-Neighbor</td>
+                                    <td>O(n)</td>
+                                    <td><progress value="75" max="100">75%</progress></td>
+                                </tr>
+                                <tr>
+                                    <td>Genetic Routing Algorithm</td>
+                                    <td>O(Epochs * Population)</td>
+                                    <td><progress value="95" max="100">90%</progress></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </section>
             </article>
             <details>
