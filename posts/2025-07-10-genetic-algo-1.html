@@ -199,7 +199,7 @@ private List&lt;ServiceDestination&gt; OX(
     int size = parent1.size();
     int start = random.nextInt(size / 2);
     int end = start + random.nextInt(size - start);
-    List&gtServiceDestination&gt; child = new ArrayList&lt;&gt;(Collections.nCopies(size, null));
+    List&gt;ServiceDestination&gt; child = new ArrayList&lt;&gt;(Collections.nCopies(size, null));
 
     // Preserve allele position from gene in child
     for (int i = start; i &lt;= end; i++) {
@@ -350,28 +350,31 @@ public void test_route() {
                                 <col style="background-color: #fff;">
                             </colgroup>
                             <thead style="background-color: #f0f0f0;">
+                            <tr>
                                 <th>Method</th>
                                 <th>Runtime</th>
                                 <th>Accuracy</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Brute Force</td>
-                                    <td>O(n!)</td>
-                                    <td><progress value="100" max="100">100%</progress></td>
-                                </tr>
-                                <tr>
-                                    <td>Greedy Nearest-Neighbor</td>
-                                    <td>O(n)</td>
-                                    <td><progress value="75" max="100">75%</progress></td>
-                                </tr>
-                                <tr>
-                                    <td>Genetic Routing Algorithm</td>
-                                    <td>O(Epochs * Population)</td>
-                                    <td><progress value="95" max="100">90%</progress></td>
-                                </tr>
+                            <tr>
+                                <td>Brute Force</td>
+                                <td>O(n!)</td>
+                                <td><progress value="100" max="100">100%</progress></td>
+                            </tr>
+                            <tr>
+                                <td>Greedy Nearest-Neighbor</td>
+                                <td>O(n)</td>
+                                <td><progress value="75" max="100">75%</progress></td>
+                            </tr>
+                            <tr>
+                                <td>Genetic Routing Algorithm</td>
+                                <td>O(Epochs * Population)</td>
+                                <td><progress value="95" max="100">90%</progress></td>
+                            </tr>
                             </tbody>
                         </table>
+
                     </section>
             </article>
             <details>
