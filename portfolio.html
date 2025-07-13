@@ -4,29 +4,34 @@
         <title>Welcome</title>
     </head>
     <body>
+        <header>
+            <h1>Portfolio</h1>
+            <nav>
+                <a href="/index.html">Home</a>
+                <a href="/portfolio.html">Portfolio</a>
+                <a href="/blog.html">DevBlog</a>
+                <a href="/contact.html">Contact</a>
+            </nav>
+        </header>
         <main>
-            <header>
-                <h1>Portfolio</h1>
-                <nav>
-                    <a href="/index.html">Home</a>
-                    <a href="/portfolio.html">Portfolio</a>
-                    <a href="/contact.html">Contact</a>
-                </nav>
-            </header>
             <h2>Project Portfolio</h2>
-            <ul>
-                <li>
-                    <section>
-                        <h3>Asteroids</h3>
-                        <p></p>
-                    </section>
-                </li>
-            </ul>
+            <search>
+                <form>
+                    <input name="projsearch" id="projsearch" placeholder="Search Projects">
+                </form>
+            </search>
+                <section>
+                    <h3>Asteroids</h3>
+                    <p>A clone of the classic arcade game <i>Asteroids</i> written using Java Swing</p>
+                    <picture>
+                        <source srcset="/assets/asteroids.png" type="image/png">
+                        <img src="/assets/asteroids.png" alt="Asteroids">
+                    </picture>
+                </section>
         </main>
         <footer>
             <nav>
                 <a href="/index.html">Home</a>
-                <a href="/portfolio.html">Portfolio</a>
                 <a href="/contact.html">Contact</a>
             </nav>
         </footer>
