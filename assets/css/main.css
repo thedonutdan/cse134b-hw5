@@ -14,7 +14,7 @@ body {
     min-height: 100dvh;
     align-items: center;
     font-family: 'Faustina', serif;
-    font-size: 150%;
+    font-size: 200%;
 }
 
 header, footer, main {
@@ -79,7 +79,7 @@ a {
     header, footer {
         max-width: 65%;
     }
-    
+
     main {
         max-width: 60%;
     }
