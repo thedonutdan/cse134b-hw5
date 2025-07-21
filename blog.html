@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <title>Welcome</title>
+        <title>Blog</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="/assets/css/main.css">
+        <link rel="stylesheet" href="/assets/css/blog.css">
         
     </head>
     <body>
@@ -42,18 +48,25 @@
                     <p>Unable to retrieve blogposts without JavaScript</p>
                 </dialog>
             </noscript>
-            <article>
-                <h3>Genetic Routing Algorithm for TSP</h3>
-                <p>A genetic drone router contributed to a project focused on solving TSP</p>
-                <a href="/posts/2025-07-10-genetic-algo-1.html">View Post</a>
-            </article>
-            <template id="blogpost-card">
-                <blog-card>
-                    <h3>Post Title</h3>
-                    <p>Summary</p>
-                    <a href="">View Post</a>
-                </blog-card>
-            </template>
+            <section id="post-container">
+                <article class="blog-card">
+                    <h3>Genetic Routing Algorithm for TSP</h3>
+                    <p>A genetic drone router contributed to a project focused on solving TSP</p>
+                    <a href="/posts/2025-07-10-genetic-algo-1.html">View Post</a>
+                </article>
+                <article class="blog-card">
+                    <h3>Hello World</h3>
+                    <p>My first blogpost!</p>
+                    <a href="/posts/2025-07-01-hello-world.html">View Post</a>
+                </article>
+                <template id="blogpost-card">
+                    <blog-card>
+                        <h3>Post Title</h3>
+                        <p>Summary</p>
+                        <a href="">View Post</a>
+                    </blog-card>
+                </template>
+            </section>
         </main>
         <footer>
             <nav>

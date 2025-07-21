@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <title>Welcome</title>
+        <title>Portfolio</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="/assets/css/main.css">
     </head>
@@ -17,13 +21,14 @@
         </header>
         <main>
             <h2>Project Portfolio</h2>
-                <section>
+                <section class="project-card">
                     <h3>Asteroids</h3>
                     <p>A clone of the classic arcade game <i>Asteroids</i> written using Java Swing</p>
                     <p>Utilizes keyboard input, <kbd>up</kbd>,<kbd>down</kbd>,<kbd>left</kbd>,<kbd>right</kbd>,<kbd>Space</kbd></p>
                     <picture>
-                        <source srcset="/assets/asteroids.png" type="image/png">
-                        <img src="/assets/asteroids.png" alt="Asteroids">
+                        <source media="(max-width: 500pxx)" srcset="/assets/asteroids-400.png" type="image/png">
+                        <source media="(max-width: 1200px)" srcset="/assets/asteroids-700.png" type="image/png">
+                        <img src="/assets/asteroids.png" alt="Screenshot of Asteroids game window with player, alien, and asteroids on screen. Some bullets have just been fired.">
                     </picture>
                 </section>
         </main>
