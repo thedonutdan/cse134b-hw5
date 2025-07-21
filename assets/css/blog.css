@@ -22,3 +22,15 @@
         border-width: 5px;
     }
 }
+
+button, select, input {
+    background-color: var(--header-footer-background-color);
+    border-width: 0;
+    color: var(--font-color);
+}
+
+button {
+    &:hover {
+        transform: scale(1.05);
+    }
+}
