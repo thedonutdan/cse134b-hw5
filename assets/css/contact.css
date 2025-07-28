@@ -1,0 +1,45 @@
+.contact-form fieldset {
+    display: flex;
+    flex-direction: column;
+
+    * {
+        margin-top: 0.5em;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+}
+
+*:user-invalid {
+    border: 2px solid red;
+}
+
+.contact-form {
+    min-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    display: block;
+    margin-top: 0.25em;
+  }
+
+  .input-error {
+    border: 2px solid red;
+  }
+  
+  #form-errors {
+    color: red;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+  }
+  
+  #form-status {
+    margin-top: 0.25em;
+    font-size: 0.9em;
+  }

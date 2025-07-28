@@ -84,3 +84,37 @@ a {
         max-width: 60%;
     }
 }
+
+/* Default to dark */
+:root {
+    --bg-color: var(--page-background-color-dark);
+    --text-color: var(--font-color-dark);
+    --bg-color-header-footer: var(--header-footer-background-color-dark);
+  }
+  
+  /* Light mode overrides */
+  body.dark {
+    --bg-color: var(--page-background-color-light);
+    --text-color: var(--font-color-light);
+    --bg-color-header-footer: var(--header-footer-background-color-light);
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  header, footer {
+    background-color: var(--bg-color-header-footer);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  #theme-toggle {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  

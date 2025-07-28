@@ -1,8 +1,13 @@
 :root {
-    --page-background-color: #171717;
-    --content-background-color: #31363F;
-    --header-footer-background-color: #222831;
-    --font-color: #EEEEEE;
-    --link-color: #DDDDDD;
+    --page-background-color-dark: #171717;
+    --page-background-color-light: #FFFFFF;
+    --content-background-color-dark: #31363F;
+    --content-background-color-light: #EEEEEE;
+    --header-footer-background-color-dark: #222831;
+    --header-footer-background-color-light: #EEEEEE;
+    --font-color-dark: #EEEEEE;
+    --font-color-light: black;
+    --link-color-dark: #DDDDDD;
+    --link-color-light: blue;
     --link-color-hover: white;
 }
