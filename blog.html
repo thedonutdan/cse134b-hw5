@@ -25,8 +25,94 @@
                     toggleBtn.textContent = isDark ? "☀️" : "🌙";
                     localStorage.setItem("theme", isDark ? "dark" : "light");
                 });
+
+                const existing = localStorage.getItem("posts");
+
+                if (!existing) {
+                    const defaultPosts = [
+                    {
+                        title: "Hello World",
+                        summary: "An introductory post",
+                        url: "post/2025-07-01-hello-world.html",
+                        imgsrc: "assets/profile.png"
+                    }
+                    ];
+                    localStorage.setItem("posts", JSON.stringify(defaultPosts));
+                    console.log("Default post added to localStorage.");
+                }
+
+                fetchFromLocalStorage();
+
+                const loadLocalButton = document.getElementById('load-local');
+                const loadCloudButton = document.getElementById('load-cloud');
+
+                loadLocalButton.addEventListener("click", fetchFromLocalStorage);
+                loadCloudButton.addEventListener("click", fetchFromCloud);
+
+                class BlogCard extends HTMLElement {
+                    connectedCallback() {
+                        this.innerHTML = `
+                            <h3>${this.getAttribute('title') || 'Blog Post'}</h3>
+                            <picture>
+                                <img src="${this.getAttribute('imgsrc') || 'assets/profile.png'}"
+                                     alt="${this.getAttribute('alt') || 'picture of a handsome man with a mustache'}">
+                            </picture>
+                            <p>${this.getAttribute('summary') || 'A blog post about something'}</p>
+                            <a href="${this.getAttribute('url') || '#'}">View post</a>
+                        `;
+                    }
+                }
+                customElements.define('blog-card', BlogCard);
+
+                function fetchFromCloud() {
+                    const container = document.getElementById("post-container");
+                    container.innerHTML = '';
+                    fetch("https://my-json-server.typicode.com/thedonutdan/myjsonserver/posts")
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('HTTP error when fetching');
+                            }
+                            return response.json();
+                        })
+                        .then(posts =>{
+                            posts.forEach(post => {
+                                const card = document.createElement('blog-card');
+                                card.setAttribute('title', post.title);
+                                card.setAttribute('imgsrc', post.imgsrc);
+                                card.setAttribute('summary', post.summary);
+                                card.setAttribute('url', post.url);
+                                card.setAttribute('class', 'blog-card');
+                                container.appendChild(card);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Failed to load posts: ", error);
+                        });
+                }
+
+                function fetchFromLocalStorage() {
+                    const container = document.getElementById("post-container");
+                    container.innerHTML = '';
+                    const postsRaw = localStorage.getItem("posts");
+                    if (postsRaw) {
+                        const posts = JSON.parse(postsRaw);
+                        posts.forEach(post => {
+                                const card = document.createElement('blog-card');
+                                card.setAttribute('title', post.title);
+                                card.setAttribute('imgsrc', post.imgsrc);
+                                card.setAttribute('summary', post.summary);
+                                card.setAttribute('url', post.url);
+                                card.setAttribute('class', 'blog-card');
+                                container.appendChild(card);
+                        });
+                    }
+                }
+
+
+
+
             });
-            </script>
+        </script>
         
     </head>
     <body>
@@ -42,6 +128,10 @@
         </header>
         <main>
             <h2>DevBlog Posts</h2>
+            <section>
+                <button id="load-local">Fetch from local</button>
+                <button id="load-cloud">Fetch from cloud</button>
+            </section>
                         <search>
                 <form>
                     <label for="blogfilter">Filter</label>
@@ -62,29 +152,10 @@
                     <button type="submit">Search</button>
                 </form>
             </search>
-            <noscript>
-                <dialog open>
-                    <p>Unable to retrieve blogposts without JavaScript</p>
-                </dialog>
-            </noscript>
             <section id="post-container">
-                <article class="blog-card">
-                    <h3>Genetic Routing Algorithm for TSP</h3>
-                    <p>A genetic drone router contributed to a project focused on solving TSP</p>
-                    <a href="/posts/2025-07-10-genetic-algo-1.html">View Post</a>
-                </article>
-                <article class="blog-card">
-                    <h3>Hello World</h3>
-                    <p>My first blogpost!</p>
-                    <a href="/posts/2025-07-01-hello-world.html">View Post</a>
-                </article>
-                <template id="blogpost-card">
-                    <blog-card>
-                        <h3>Post Title</h3>
-                        <p>Summary</p>
-                        <a href="">View Post</a>
-                    </blog-card>
-                </template>
+                <noscript>
+                    <p>Unable to retrieve blogposts without JavaScript</p>
+                </noscript>
             </section>
         </main>
         <footer>

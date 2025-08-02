@@ -10,4 +10,8 @@
     --link-color-dark: #DDDDDD;
     --link-color-light: blue;
     --link-color-hover: white;
+
+    --blog-card-border-width: 1px;
+    --blog-card-border-style: solid;
+    --blog-card-border-color: white;
 }

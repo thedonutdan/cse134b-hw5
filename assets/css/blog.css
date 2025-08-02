@@ -1,19 +1,30 @@
 @import './variables.css';
 
 #post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 1em;
 }
 
 .blog-card {
-    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border: var(--blog-card-border-width) var(--blog-card-border-style) var(--blog-card-border-color);
     border-radius: 10px;
     padding: 0.5em 0.5em 0.5em;
     margin-bottom: 1em;
-    width: 100%;
+    width: 60%;
 
     &:hover {
         transform: scale(1.01);
         transition: transform 0.2s ease;
+    }
+
+    img {
+        margin: auto;
+        max-width: 15%;
     }
 }
 
@@ -24,9 +35,9 @@
 }
 
 button, select, input {
-    background-color: var(--header-footer-background-color);
+    background-color: var(--header-footer-background-color-dark);
     border-width: 0;
-    color: var(--font-color);
+    color: var(--font-color-dark);
 }
 
 button {
